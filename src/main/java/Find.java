@@ -16,8 +16,9 @@ public class Find {
 
     @Argument
     private List<String> arguments = new ArrayList<String>(1); //File
+    StringBuilder result = new StringBuilder();
 
-    private void workWithArguments(String[] args) throws IOException {
+    void workWithArguments(String[] args) throws IOException {
         CmdLineParser parser = new CmdLineParser(this);
         try {
             parser.parseArgument(args);
@@ -40,31 +41,33 @@ public class Find {
         } else {
             findFilesWithoutR(direktory, fileName);
         }
-
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("output/newTestFind.txt"))) {
+            writer.write(String.valueOf(result));
+        }
 
     }
 
     public static void main(String[] args) throws IOException {
 
-        new Find().workWithArguments("-d /Users/Dima/progect/input input.txt".trim().split(" "));
-        new Find().workWithArguments("-r -d /Users/Dima/progect/input/dir f1.txt".trim().split(" "));
+        new Find().workWithArguments(args);
+
 
     }
 
     public void isDirektory(@NotNull File dir, String name) {
         if (dir.isDirectory()) {
             if (!dir.exists()) {
-                System.out.println(dir + " папка не существует");
+                result.append(dir).append(" папка не существует");
                 return;
             }
             File[] listFiles = dir.listFiles();
             if (listFiles.length == 0) {
-                System.out.println(dir + " не содержит файлов");
+                result.append(dir).append(" не содержит файлов");
             } else {
                 for (File f : listFiles) {
                     isDirektory(f, name);
                     if (f.getName().equals(name)) {
-                        System.out.println("Файл: " + dir + File.separator + f.getName());
+                        result.append("Файл: ").append(dir).append(File.separator).append(f.getName());
                     }
 
                 }
@@ -82,16 +85,16 @@ public class Find {
         File dir = new File(file);
         if (dir.isDirectory()) {
             if (!dir.exists()) {
-                System.out.println(dir + " папка не существует");
+                result.append(dir).append(" папка не существует");
                 return;
             }
             File[] listFiles = dir.listFiles();
             if (listFiles.length == 0) {
-                System.out.println(dir + " не содержит файлов");
+                result.append(dir).append(" не содержит файлов");
             } else {
                 for (File f : listFiles) {
                     if (f.getName().equals(name)) {
-                        System.out.println("Файл: " + dir + File.separator + f.getName());
+                        result.append("Файл: ").append(dir).append(File.separator).append(f.getName());
                     }
 
                 }
