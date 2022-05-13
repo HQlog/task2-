@@ -38,12 +38,10 @@ public class FindTest {
       new Find().workWithArguments("-d /Users/Xiaomi/task2!/input/sdf a.txt".trim().split(" "));
 
         equalsFiles("output/newTestFind.txt", "output/forTest1.txt");
-        new File("output/newTestFind.txt").delete();
 
         new Find().workWithArguments("-r -d /Users/Xiaomi/task2!/input q.txt".trim().split(" "));
 
         equalsFiles("output/newTestFind.txt", "output/forTest2.txt");
-        new File("output/newTestFind.txt").delete();
 
     }
 }

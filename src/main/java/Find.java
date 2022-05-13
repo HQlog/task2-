@@ -33,7 +33,7 @@ public class Find {
         }
 
 
-//передаём имя входного файл
+
         String fileName = arguments.get(0);
         if (direktory.isEmpty()) throw new IOException();
         if (r) {
@@ -78,7 +78,7 @@ public class Find {
 
     private void findFiles(String dir, String name) {
         File file = new File(dir);
-        isDirektory(file, name); // рекурсия
+        isDirektory(file, name);
     }
 
     private void findFilesWithoutR(String file, String name) {
